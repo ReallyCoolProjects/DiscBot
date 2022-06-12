@@ -8,9 +8,12 @@ const {
     Client,
     Intents
 } = require('discord.js');
+//creating a client, with intent 
 const client = new Client({
     intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES]
 });
+
+//when client ready, get msg stream and check conditions below
 
 client.on('ready', () => {
     console.log(client.user.tag)
@@ -32,7 +35,11 @@ client.on('message', msg => {
     }
 })
 
-
+/*
+compile will
+write the received code to compile.js
+use exec_code() to execute it and display it in chat 
+*/
 const compile = (msg, c) => {
     // msg.reply(`${msg.author} ${c}`)
     c = c.replace("!compile ", "");
@@ -57,10 +64,11 @@ const compile = (msg, c) => {
 
 }
 
+//exec_code will execute the code received by msg using exec() and returns output
 async function exec_code(jcode){
     // Exec output contains both stderr and stdout outputs
     const command = await exec(`node compile.js`)
-  
+    //we take only stdout
     return command.stdout.trim()
   };
 
