@@ -9,4 +9,4 @@ This is a Discord bot that is currently under developpement
 
 # TODO
  
-[-]: add other features
+[x]: add other features
