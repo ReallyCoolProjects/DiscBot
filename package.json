@@ -4,6 +4,8 @@
   "description": "",
   "main": "app.ts",
   "scripts": {
+    "start": "node dist/bot.js",
+    "build": "tsc -p tsconfig.json",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint ./ --ignore-path .gitignore",
     "lint:fix": "npm run lint -- --fix"
@@ -20,6 +22,7 @@
   },
   "homepage": "https://github.com/ReallyCoolProjects/DiscBot#readme",
   "devDependencies": {
+    "@types/node": "^17.0.42",
     "@typescript-eslint/eslint-plugin": "^5.27.1",
     "@typescript-eslint/parser": "^5.27.1",
     "eslint": "^8.17.0"
@@ -27,6 +30,7 @@
   "dependencies": {
     "discord.js": "^13.8.0",
     "dotenv": "^16.0.1",
-    "express": "^4.18.1"
+    "express": "^4.18.1",
+    "typescript": "^4.7.3"
   }
 }
