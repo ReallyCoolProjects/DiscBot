@@ -1,27 +1,36 @@
 {
-	"name": "discbot",
-	"version": "1.0.0",
-	"description": "",
-	"main": "app.ts",
-	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1",
-		"lint": "eslint ./ --ignore-path .gitignore",
-		"lint:fix": "npm run lint -- --fix"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/ReallyCoolProjects/DiscBot.git"
-	},
-	"keywords": [],
-	"author": "",
-	"license": "ISC",
-	"bugs": {
-		"url": "https://github.com/ReallyCoolProjects/DiscBot/issues"
-	},
-	"homepage": "https://github.com/ReallyCoolProjects/DiscBot#readme",
-	"devDependencies": {
-		"@typescript-eslint/eslint-plugin": "^5.27.1",
-		"@typescript-eslint/parser": "^5.27.1",
-		"eslint": "^8.17.0"
-	}
+  "name": "discbot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.ts",
+  "scripts": {
+    "start": "node dist/bot.js",
+    "build": "tsc -p tsconfig.json",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint ./ --ignore-path .gitignore",
+    "lint:fix": "npm run lint -- --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ReallyCoolProjects/DiscBot.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ReallyCoolProjects/DiscBot/issues"
+  },
+  "homepage": "https://github.com/ReallyCoolProjects/DiscBot#readme",
+  "devDependencies": {
+    "@types/node": "^17.0.43",
+    "@typescript-eslint/eslint-plugin": "^5.27.1",
+    "@typescript-eslint/parser": "^5.27.1",
+    "eslint": "^8.17.0"
+  },
+  "dependencies": {
+    "discord.js": "^13.8.0",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "typescript": "^4.7.3"
+  }
 }
