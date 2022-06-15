@@ -27,9 +27,9 @@ client.on('message', (msg: any) => {
 		msg.reply(`${msg.author} World!`);
 	}
 
-	if (msg.channel.id === '985288693189328997') {
+	if (msg.channel.id === '985125240147431434') {
 		//this long number is the id of a channel
-		(client.channels.cache.get('985273790592319552') as TextChannel).send({
+		(client.channels.cache.get('985572924998184990') as TextChannel).send({
 			content: `${client.user?.tag} shared resource, check it out`,
 		});
 	}
@@ -44,7 +44,7 @@ compile will
 write the received code to compile.js
 use exec_code() to execute it and display it in chat 
 */
-const compile = (msg: any, c: any) => {
+const compile = (msg: any, c: string) => {
 	// msg.reply(`${msg.author} ${c}`)
 	c = c.replace('!compile ', '');
 
@@ -56,7 +56,7 @@ const compile = (msg: any, c: any) => {
 		response
 			.then((data) => {
 				console.log(data);
-				msg.reply(`${data.toString()}`);
+				msg.reply('`' + `${data.toString()}` + '`');
 			})
 			.catch((err) => {
 				msg.reply(`Error: ${err}`);
@@ -69,7 +69,8 @@ const compile = (msg: any, c: any) => {
 //exec_code will execute the code received by msg using exec() and returns output
 async function exec_code() {
 	// Exec output contains both stderr and stdout outputs
-	const command = await exec('node compile.js');
+	// const chenge_dir = await exec('cd dist');
+	const command = await exec('node dist/compile.js');
 	//we take only stdout
 	return command.stdout.trim();
 }
