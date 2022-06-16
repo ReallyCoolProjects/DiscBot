@@ -11,13 +11,13 @@ compile code sent in the chat, if it starts with "!compile".
 welcome new members
 ### TODO
 - [ ]  refactor code
-- [ ]  add custom error class
 - [ ]  add more news options (date, website, etc...)
 - [ ]  and other functionalities
 
 ### Completed Column ✓
 - [x]   compiling javascript code
 - [x]   Implemented news functionality
+- [x]   add custom error class
 ## Contributing
 
 Contributions are always welcome!
@@ -33,6 +33,13 @@ if you want to change the branch:
 to run the code: 
 - build typescript by: `npm run build`
 - run node js: `npm start`
+
+## usage
+to compile code:
+- run `!copmile ${code}`
+
+to get news about a specific topic
+- run `!news ${topic}` topic should be one word
 
 
 ## Authors

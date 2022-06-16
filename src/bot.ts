@@ -7,7 +7,7 @@ import { Intents } from 'discord.js'; //tried { Client, Intents } didn't work :(
 import childProcess = require('child_process');
 import { TextChannel } from 'discord.js';
 import { getNews  }  from './news';
-import { NewsInterface } from './interfaces';
+import { API_ERROR } from './error';
 
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
 const exec = promisify(childProcess.exec);
@@ -28,8 +28,10 @@ const retrieveData = async (msg: any, field: string)=>{
 			source: string,
 			date: string
 		}) => {
-			msg.reply('`' + `title: ${element.title} \ndescription: ${element.description} \ncontent: ${element.content} \nsource: ${element.source} \ndate: ${element.date}` + '`');
+			msg.reply(`title: ${element.title} \ndescription: ${element.description} \ncontent: `+ (element.content) +` \nsource: ${element.source} \ndate: ${element.date}`);
 		});
+	}).catch(err => {
+		throw new API_ERROR('Something went wrong while fetching data');
 	});
 	
 };
@@ -67,9 +69,15 @@ client.on('message', (msg: any) => {
 		const code = msg.content;
 		//2022-05-01
 		const commands: string[] = code.split(' ');
-		const field: string = commands[1];
-		//will add other functions
-		retrieveData(msg, field);
+		if(commands.length > 2){
+			msg.reply('unvalide resuet');
+		}
+		else{
+			const field: string = commands[1];
+			//will add other functions
+			retrieveData(msg, field);
+		}
+		
 	}
 });
 
