@@ -1,13 +1,14 @@
-import fs = require('fs');
+import fs from 'fs';
 import dotenv from 'dotenv';
 import path from 'path';
 import { promisify } from 'util';
 import { Client } from 'discord.js';
 import { Intents } from 'discord.js'; //tried { Client, Intents } didn't work :(
-import childProcess = require('child_process');
+import childProcess from 'child_process';
 import { TextChannel } from 'discord.js';
 import { getNews  }  from './news';
 import { API_ERROR } from './error';
+import { getKenyeQuote } from './kanye';
 
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
 const exec = promisify(childProcess.exec);
@@ -28,14 +29,22 @@ const retrieveData = async (msg: any, field: string)=>{
 			source: string,
 			date: string
 		}) => {
+			console.log(element.description);
 			msg.reply(`title: ${element.title} \ndescription: ${element.description} \ncontent: `+ (element.content) +` \nsource: ${element.source} \ndate: ${element.date}`);
 		});
-	}).catch(err => {
+	}).catch(error => {
 		throw new API_ERROR('Something went wrong while fetching data');
 	});
 	
 };
 
+const retreiveQuote = async (msg: any) =>{
+	await getKenyeQuote().then(response=> response).then(data =>{
+		msg.reply(data);
+	}).catch(e => {
+		throw new API_ERROR('Something went wrong while fetching data');
+	});
+};
 //creating a client, with intent
 const client = new Client({
 	intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
@@ -64,13 +73,17 @@ client.on('message', (msg: any) => {
 		const code = msg.content;
 		compile(msg, code);
 	}
+	if (msg.content.startsWith('!kanye')) {
+		retreiveQuote(msg);
+	}
 	//!news !science 10/12/2022
 	if (msg.content.startsWith('!news')) {
 		const code = msg.content;
 		//2022-05-01
+		
 		const commands: string[] = code.split(' ');
 		if(commands.length > 2){
-			msg.reply('unvalide resuet');
+			throw new API_ERROR('Unvalid request');
 		}
 		else{
 			const field: string = commands[1];
@@ -79,6 +92,8 @@ client.on('message', (msg: any) => {
 		}
 		
 	}
+
+	
 });
 
 /*

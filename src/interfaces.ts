@@ -39,4 +39,8 @@ interface NewsInterface{ //interface for the chat that will be sent
     source: string,
     date: string
 }
-export {NewsData, NewsInterface, ArticleInterface};
+
+interface KanyeQuoteInterface{
+    quote: string
+}
+export {NewsData, NewsInterface, ArticleInterface, KanyeQuoteInterface};
