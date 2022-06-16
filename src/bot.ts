@@ -6,10 +6,28 @@ import { Client } from 'discord.js';
 import { Intents } from 'discord.js'; //tried { Client, Intents } didn't work :(
 import childProcess = require('child_process');
 import { TextChannel } from 'discord.js';
+import { getNews  }  from './news';
+import { NewsInterface } from './interfaces';
 
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
 const exec = promisify(childProcess.exec);
 const token = process.env.TOKEN;
+
+
+const retrieveData = async (msg: any, field: string)=>{
+	await getNews(field).then(result => result).then(data=> {
+		data.forEach((element: {
+			title: string,
+			description: string,
+			content: string,
+			source: string,
+			date: string
+		}) => {
+			msg.reply('`' + `title: ${element.title} \ndescription: ${element.description} \ncontent: ${element.content} \nsource: ${element.source} \ndate: ${element.date}` + '`');
+		});
+	});
+	
+};
 
 //creating a client, with intent
 const client = new Client({
@@ -19,7 +37,9 @@ const client = new Client({
 //when client ready, get msg stream and check conditions below
 
 client.on('ready', () => {
-	console.log(client.user?.tag); //saying it
+	(client.channels.cache.get('985581831774687272') as TextChannel).send({
+		content: 'Hey, i\'m online',
+	}); //saying it
 });
 
 client.on('message', (msg: any) => {
@@ -37,6 +57,14 @@ client.on('message', (msg: any) => {
 		const code = msg.content;
 		compile(msg, code);
 	}
+	//!news !science 10/12/2022
+	if (msg.content.startsWith('!news')) {
+		const code = msg.content;
+		//2022-05-01
+		const commands: string[] = code.split(' ');
+		const field: string = commands[1];
+		retrieveData(msg, field);
+	}
 });
 
 /*
@@ -44,7 +72,7 @@ compile will
 write the received code to compile.js
 use exec_code() to execute it and display it in chat 
 */
-const compile = (msg: any, c: string) => {
+const compile = (msg: any,  c: string) => {
 	// msg.reply(`${msg.author} ${c}`)
 	c = c.replace('!compile ', '');
 
