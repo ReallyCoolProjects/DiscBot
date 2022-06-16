@@ -1,5 +1,5 @@
 
-interface NewsData{
+interface NewsData{ //interface for the returned result of the API
     status: string,
     totalRequests: number,
     articles: {
@@ -17,7 +17,7 @@ interface NewsData{
     }[]
 }
 
-interface ArticleInterface{
+interface ArticleInterface{ //interface for 1 article
     source: {
         id: string,
         name: string
@@ -32,7 +32,7 @@ interface ArticleInterface{
 }
 
 
-interface NewsInterface{
+interface NewsInterface{ //interface for the chat that will be sent
     title: string,
     description: string,
     content: string,

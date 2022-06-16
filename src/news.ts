@@ -6,6 +6,11 @@ dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
 const API_KEY = process.env.API_KEY;
 
+
+/*
+getNews takes field(news domain), fetch data, push it to array of NewsInterface
+returns a promise "Promise<NewsInterface[] | any>"
+*/
 const getNews = async (field: string): Promise<NewsInterface[] | any> => {
 	try {
 		const listRsp = await fetch(
@@ -14,7 +19,7 @@ const getNews = async (field: string): Promise<NewsInterface[] | any> => {
 		const news: any = await listRsp.json();
 		const arr: any = news.articles;
 		const newsFeed: NewsInterface[] = [];
-		if (arr.length >= 10) {
+		if (arr.length >= 5) { //if there is more then 5 news, it returns 3
 			for (let i = 0; i < 3; i++) {
 				newsFeed.push({
 					title: arr[i].title,
@@ -41,6 +46,5 @@ const getNews = async (field: string): Promise<NewsInterface[] | any> => {
 	}
 	
 };
-
 
 export {getNews};

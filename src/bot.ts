@@ -13,7 +13,12 @@ dotenv.config({ path: path.resolve(__dirname, '../.env') });
 const exec = promisify(childProcess.exec);
 const token = process.env.TOKEN;
 
-
+/**
+ * 
+ * @param msg discord msg function
+ * @param field news topic, choosed by user
+ * retrieveData execute getNews, format the response and send it to chat
+ */
 const retrieveData = async (msg: any, field: string)=>{
 	await getNews(field).then(result => result).then(data=> {
 		data.forEach((element: {
@@ -63,6 +68,7 @@ client.on('message', (msg: any) => {
 		//2022-05-01
 		const commands: string[] = code.split(' ');
 		const field: string = commands[1];
+		//will add other functions
 		retrieveData(msg, field);
 	}
 });
