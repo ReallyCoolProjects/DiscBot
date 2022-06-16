@@ -35,6 +35,9 @@ to compile code:
 to get news about a specific topic
 - run `!news #TOPIC` topic should be one word
 
+to get a wild tweet from kanye
+- run `!kanye`
+
 
 ## Authors
 
