@@ -2,7 +2,7 @@ import fs from 'fs';
 import dotenv from 'dotenv';
 import path from 'path';
 import { promisify } from 'util';
-import { Client } from 'discord.js'
+import { Client } from 'discord.js';
 import { Intents } from 'discord.js'; //tried { Client, Intents } didn't work :(
 import childProcess from 'child_process';
 import { TextChannel } from 'discord.js';
@@ -47,7 +47,7 @@ const retrieveWeather = async(msg: any, location: string) =>{
 			msg.reply(`\nCountry : ${element.country} \nCity : ${element.name} \nTemp : ${element.temp}°C \nFeels like : ${element.feelsLike}°C \nLowest temp. : ${element.tempMin}°C \nHighest temp. : ${element.tempMax}°C \nDescription: ${element.weatherDescription}\nHumidity : ${element.humidity}% `);
 		});
 	});
-}
+};
 
 const retreivePrice = async (msg: any, field: string) =>{
 	await getCryptoPrice(field).then(response=> response).then(data =>{
@@ -119,7 +119,7 @@ client.on('message', (msg: any) => {
 			throw new API_ERROR('Unvalid request');
 		} else {
 			const location: string = commands[1];
-			retrieveWeather(msg, location)
+			retrieveWeather(msg, location);
 		}
 	}
 	
