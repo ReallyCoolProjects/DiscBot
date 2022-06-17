@@ -10,6 +10,8 @@ compile code sent in the chat, if it starts with "!compile".
 
 get current price and news about crypto.
 
+get current weather of specified city.
+
 welcome new members
 ### TODO
 - [ ]  refactor code
@@ -19,6 +21,7 @@ welcome new members
 ### Completed Column ✓
 - [x]   compiling javascript code
 - [x]   Implemented news functionality
+- [x]   Implemented weather functionality
 - [x]   add custom error class
 
 
@@ -37,6 +40,9 @@ to get news about a specific topic
 
 to get a wild tweet from kanye
 - run `!kanye`
+
+to get current weather of a specified city
+- run `!weather {city}`
 
 
 ## Authors
