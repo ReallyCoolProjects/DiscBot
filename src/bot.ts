@@ -30,7 +30,6 @@ const retrieveData = async (msg: any, field: string)=>{
 			source: string,
 			date: string
 		}) => {
-			console.log(element.description);
 			msg.reply(`title: ${element.title} \ndescription: ${element.description} \ncontent: `+ (element.content) +` \nsource: ${element.source} \ndate: ${element.date}`);
 		});
 	}).catch(error => {
@@ -56,7 +55,7 @@ const retreiveQuote = async (msg: any) =>{
 };
 //creating a client, with intent
 const client = new Client({
-	intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
+	intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES,  Intents.FLAGS.GUILD_MESSAGE_REACTIONS],
 });
 
 //when client ready, get msg stream and check conditions below
@@ -105,7 +104,6 @@ client.on('message', (msg: any) => {
 		const code = msg.content;
 		//2022-05-01
 		const commands: string[] = code.split(' ');
-		console.log(commands);
 		
 		if(commands.length > 2){
 			throw new API_ERROR('Unvalid request');
