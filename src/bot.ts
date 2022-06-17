@@ -2,7 +2,7 @@ import fs from 'fs';
 import dotenv from 'dotenv';
 import path from 'path';
 import { promisify } from 'util';
-import { Client } from 'discord.js';
+import { Client } from 'discord.js'
 import { Intents } from 'discord.js'; //tried { Client, Intents } didn't work :(
 import childProcess from 'child_process';
 import { TextChannel } from 'discord.js';
@@ -10,7 +10,8 @@ import { getNews  }  from './news';
 import { API_ERROR } from './error';
 import { getKenyeQuote } from './kanye';
 import {getCryptoPrice} from './coinprice';
-import {CryptoPriceInterface} from './interfaces';
+import {CryptoPriceInterface, WeatherInterface} from './interfaces';
+import { getWeather } from './weather';
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
 const exec = promisify(childProcess.exec);
 const token = process.env.TOKEN;
@@ -21,6 +22,7 @@ const token = process.env.TOKEN;
  * @param field news topic, choosed by user
  * retrieveData execute getNews, format the response and send it to chat
  */
+
 const retrieveData = async (msg: any, field: string)=>{
 	await getNews(field).then(result => result).then(data=> {
 		data.forEach((element: {
@@ -38,6 +40,15 @@ const retrieveData = async (msg: any, field: string)=>{
 	});
 	
 };
+
+
+const retrieveWeather = async(msg: any, location: string) =>{
+	await getWeather(location).then(response => response).then(data =>{
+		data.forEach((element: WeatherInterface) => {
+			msg.reply(`\nCountry : ${element.country} \nCity : ${element.name} \nTemp : ${element.temp}°C \nFeels like : ${element.feelsLike}°C \nLowest temp. : ${element.tempMin}°C \nHighest temp. : ${element.tempMax}°C \nDescription: ${element.weatherDescription}\nHumidity : ${element.humidity}% `);
+		});
+	});
+}
 
 const retreivePrice = async (msg: any, field: string) =>{
 	await getCryptoPrice(field).then(response=> response).then(data =>{
@@ -98,6 +109,19 @@ client.on('message', (msg: any) => {
 			retreivePrice(msg, field);
 		}
 		
+	}
+
+	// weahter
+
+	if(msg.content.startsWith('!weather')){
+		const code = msg.content;
+		const commands: string[] = code.split(' ');
+		if(commands.length > 2){
+			throw new API_ERROR('Unvalid request');
+		} else {
+			const location: string = commands[1];
+			retrieveWeather(msg, location)
+		}
 	}
 	
 	//!news !science 10/12/2022

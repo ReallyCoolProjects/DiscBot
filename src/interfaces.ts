@@ -44,6 +44,18 @@ interface KanyeQuoteInterface{
     quote: string
 }
 
+interface WeatherInterface{
+    temp: number,
+    feelsLike: number,
+    tempMin: number,
+    tempMax: number,
+    country: string,
+    name: string,
+    main : string,
+    humidity: number,
+    weatherDescription: string,
+}
+
 interface CryptoPriceInterface{
     id: string,
     symbol:string,
@@ -64,4 +76,4 @@ interface CryptoPriceInterface{
 
 }
 
-export {NewsData, NewsInterface, ArticleInterface, KanyeQuoteInterface,CryptoPriceInterface};
+export {NewsData, NewsInterface, ArticleInterface, KanyeQuoteInterface,CryptoPriceInterface, WeatherInterface};
