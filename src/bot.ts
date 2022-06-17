@@ -9,7 +9,8 @@ import { TextChannel } from 'discord.js';
 import { getNews  }  from './news';
 import { API_ERROR } from './error';
 import { getKenyeQuote } from './kanye';
-
+import {getCryptoPrice} from './coinprice';
+import {CryptoPriceInterface} from './interfaces';
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
 const exec = promisify(childProcess.exec);
 const token = process.env.TOKEN;
@@ -36,6 +37,14 @@ const retrieveData = async (msg: any, field: string)=>{
 		throw new API_ERROR('Something went wrong while fetching data');
 	});
 	
+};
+
+const retreivePrice = async (msg: any, field: string) =>{
+	await getCryptoPrice(field).then(response=> response).then(data =>{
+		data.forEach((element: CryptoPriceInterface) => {
+			msg.reply(`id : ${element.id} \nsymbol : ${element.symbol} \nname : ${element.name} \nprice : $${String(element.price)} \nmarket cap rank : ${element.market_cap_rank} \nimage : ${element.image} \ngenesis date : ${element.genesis_date}`);
+		});
+	});
 };
 
 const retreiveQuote = async (msg: any) =>{
@@ -76,12 +85,28 @@ client.on('message', (msg: any) => {
 	if (msg.content.startsWith('!kanye')) {
 		retreiveQuote(msg);
 	}
+
+	if (msg.content.startsWith('!crypto')) {
+		const code = msg.content;
+		const commands: string[] = code.split(' ');
+		if(commands.length > 2){
+			throw new API_ERROR('Unvalid request');
+		}
+		else{
+			const field: string = commands[1];
+			//will add other functions
+			retreivePrice(msg, field);
+		}
+		
+	}
+	
 	//!news !science 10/12/2022
 	if (msg.content.startsWith('!news')) {
 		const code = msg.content;
 		//2022-05-01
-		
 		const commands: string[] = code.split(' ');
+		console.log(commands);
+		
 		if(commands.length > 2){
 			throw new API_ERROR('Unvalid request');
 		}

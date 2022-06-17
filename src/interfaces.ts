@@ -43,4 +43,25 @@ interface NewsInterface{ //interface for the chat that will be sent
 interface KanyeQuoteInterface{
     quote: string
 }
-export {NewsData, NewsInterface, ArticleInterface, KanyeQuoteInterface};
+
+interface CryptoPriceInterface{
+    id: string,
+    symbol:string,
+    name: string,
+    description : {
+        en: string
+    },
+    image : {
+        thumb: string
+    } ,
+    genesis_date : string,
+    market_cap_rank: number,
+    price:{
+        current_price:{
+            usd: number
+        }
+    },
+
+}
+
+export {NewsData, NewsInterface, ArticleInterface, KanyeQuoteInterface,CryptoPriceInterface};
