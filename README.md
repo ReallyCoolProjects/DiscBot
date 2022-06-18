@@ -44,6 +44,8 @@ to get a wild tweet from kanye
 to get current weather of a specified city
 - run `!weather {city}`
 
+to get current price of a crypto coin
+- run `!crypto {coinName}`
 
 ## Authors
 
